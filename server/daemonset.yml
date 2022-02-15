@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+
+metadata:
+  name: goldpinger-server
+  labels:
+    app.kubernetes.io/name: goldpinger
+    app.kubernetes.io/component: server
+
+spec:
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: "100%"
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: goldpinger
+      app.kubernetes.io/component: server
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: goldpinger
+        app.kubernetes.io/component: server
+
+    spec:
+      serviceAccount: goldpinger
+
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+
+      containers:
+        - name: server
+          image: goldpinger-server
+          imagePullPolicy: IfNotPresent
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+
+          env:
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+
+          envFrom:
+            - configMapRef:
+                name: goldpinger-server
+
+          ports:
+            - containerPort: 8080
+              name: http
+
+          resources:
+            limits:
+              cpu: 1m
+              memory: 80Mi
+            requests:
+              cpu: 1m
+              memory: 40Mi
+
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 5
+
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 5
+
+...

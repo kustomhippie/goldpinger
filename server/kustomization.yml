@@ -1,0 +1,28 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - serviceaccount.yml
+  - clusterrole.yml
+  - clusterrolebinding.yml
+  - daemonset.yml
+  - service.yml
+  - servicemonitor.yml
+
+configMapGenerator:
+  - name: goldpinger-server
+    options:
+      labels:
+        app.kubernetes.io/name: goldpinger
+        app.kubernetes.io/component: server
+    literals:
+      - HOST=0.0.0.0
+      - PORT=8080
+
+images:
+  - name: goldpinger-server
+    newName: bloomberg/goldpinger
+    newTag: "v3.4.1"
+
+...
