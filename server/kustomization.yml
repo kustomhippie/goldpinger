@@ -19,6 +19,7 @@ configMapGenerator:
     literals:
       - HOST=0.0.0.0
       - PORT=8080
+      - LABEL_SELECTOR=app.kubernetes.io/name=goldpinger,app.kubernetes.io/component=server
 
 images:
   - name: goldpinger-server
