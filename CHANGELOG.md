@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.0](https://github.com/kustomhippie/goldpinger/compare/v1.0.0...v2.0.0) (2023-07-17)
+
+
+### Features
+
+* **major:** update actionhippie/kustomize action to v2 ([a28b92c](https://github.com/kustomhippie/goldpinger/commit/a28b92c1ae7e1673a517fbb7f3d84ba55698d38e))
+
 ## 1.0.0 (2023-06-05)
 
 
