@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/kustomhippie/goldpinger/compare/v2.0.0...v2.1.0) (2023-10-23)
+
+
+### Features
+
+* **deps:** update bloomberg/goldpinger docker tag to v3.8.0 ([1968396](https://github.com/kustomhippie/goldpinger/commit/1968396ce94a0a946a1cd33378fc64c50296f8c0))
+
 ## [2.0.0](https://github.com/kustomhippie/goldpinger/compare/v1.0.0...v2.0.0) (2023-07-17)
 
 
