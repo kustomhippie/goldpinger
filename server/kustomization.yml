@@ -24,6 +24,6 @@ configMapGenerator:
 images:
   - name: goldpinger-server
     newName: bloomberg/goldpinger
-    newTag: "v3.8.0"
+    newTag: "3.9.0"
 
 ...
